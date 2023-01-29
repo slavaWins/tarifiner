@@ -18,10 +18,12 @@ composer require slavawins/tarifiner
 php artisan vendor:publish --provider="Tarifiner\Providers\TarifinerServiceProvider"
 ``` 
 
- В роутере routes/web.php удалить:
+ В роутере routes/web.php 
  добавить
  ```
-    \Tarifiner\Library\TarifinerRoute::routes();
+      Route::get('/plans', [App\Http\Controllers\Tarifiner\TarifinerController::class, 'Index'])->name('tarifiner');
+    Route::get('/plans/move/{ind}', [App\Http\Controllers\Tarifiner\TarifinerController::class, 'MoveTo'])->name('tarifiner.move');
+
  ```
 
 Выполнить миграцию
