@@ -1,0 +1,28 @@
+{
+    "name": "slavawins/tarifiner",
+    "description": "Expa",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "slavaWins",
+            "email": "email@example.com",
+            "homepage": "https://github.com/slavaWins/tarifiner"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tarifiner\\Providers\\TarifinerServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Tarifiner\\": "src"
+        }
+    }
+}
