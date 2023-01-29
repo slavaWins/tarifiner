@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Library\Tarifiner\Contracts;
+namespace App\Contracts\Tarifiner;
 
+
+use Tarifiner\Library\Contracts\BaseTarifVariant;
 
 class TarifVariant extends BaseTarifVariant
 {

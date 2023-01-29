@@ -27,15 +27,6 @@ class TarifinerServiceProvider extends ServiceProvider
     public function boot()
     {
 
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                ExampleCommand::class,
-                
-            ]);
-        }
-
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'tarifiner');
-
 
         $migrations_path = __DIR__ . '/../copy/migrations';
         if (file_exists($migrations_path)) {
@@ -51,6 +42,20 @@ class TarifinerServiceProvider extends ServiceProvider
             ], 'public');
         }
 
+        $migrations_path = __DIR__ . '/../copy/Contracts';
+        if (file_exists($migrations_path)) {
+            $this->publishes([
+                $migrations_path => app_path('Contracts'),
+            ], 'public');
+        }
+
+        $migrations_path = __DIR__ . '/../copy/Library';
+        if (file_exists($migrations_path)) {
+            $this->publishes([
+                $migrations_path => app_path('Library'),
+            ], 'public');
+        }
+
         $migrations_path = __DIR__ . '/../copy/views';
         if (file_exists($migrations_path)) {
             $this->publishes([
@@ -58,19 +63,6 @@ class TarifinerServiceProvider extends ServiceProvider
             ], 'public');
         }
 
-
-        $js_path = __DIR__ . '/../copy/js';
-        if (file_exists($js_path)) {
-            $this->publishes([
-                $js_path => public_path('js/tarifiner'),
-            ], 'public');
-        }
-
-        /*
-        $this->publishes([
-            __DIR__ . '/../copy/Controllers/Tarifiner' => app_path('Http/Controllers'),
-        ], 'public');
-*/
 
     }
 }

@@ -3,12 +3,14 @@
 namespace App\Library\Tarifiner;
 
 
+use App\Contracts\Tarifiner\TarifVariant;
 use App\Library\Tarifiner\Contracts\BaseTarifVariant;
-use App\Library\Tarifiner\Contracts\TarifVariant;
+use App\Models\User;
 
 class TarifinerConfiguration
 {
 
+    const USER_BALANCE_COLUM_NAME = "balance";
     const DAY_LEN = 3600 * 24;
 
     /**
@@ -45,4 +47,7 @@ class TarifinerConfiguration
         return $tarifs;
     }
 
+    public static function OnTakeMoneyUser(User $user, $amount){
+        //У пользователя взяли деньги, можете в историю записать
+    }
 }
