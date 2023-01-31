@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Tarifiner;
 
 
+use App\Contracts\Tarifiner\TarifVariant;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\NotifyBallController;
 use App\Library\Tarifiner\Contracts\BaseTarifVariant;
-use App\Library\Tarifiner\Contracts\TarifVariant;
 use App\Library\Tarifiner\TarifinerValidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +21,7 @@ class TarifinerController extends Controller
 
         $user = Auth::user();
 
-        $list = \App\Library\Tarifiner\TarifinerConfiguration::GetVariants();
+        $list =config('tarifiner.variants');
         if (!isset($list[$ind])) redirect()->back()->withErrors("Тариф не найден");
 
         $userProjectCount = 1;
@@ -47,7 +46,7 @@ class TarifinerController extends Controller
         $user->tarifInd = $ind;
         $user->save();
 
-        //NotifyBallController::SendToUid(Auth::user()->id, "Вы сменили тариф на " . $tarif->name . ". Стоимость перехода " . $needBalance . " ₽ была снята с вашего баланса.");
+        //NotificationBellBuilder::Short(Auth::user()->id, "Вы сменили тариф на " . $tarif->name . ". Стоимость перехода " . $needBalance . " ₽ была снята с вашего баланса.");
 
         return redirect()->back()->withErrors("Вы успешно сменили тариф!");
 
@@ -68,7 +67,7 @@ class TarifinerController extends Controller
                 TarifinerLib::TakeBalance(Auth::user(), -$val);
                 Auth::user()->save();
 
-                //NotifyBallController::SendToUid(Auth::user()->id, "Тестовое пополнение баланса на " . $val . " RUB");
+                //NotificationBellBuilder::Short(Auth::user()->id, "Тестовое пополнение баланса на " . $val . " RUB");
 
 
                 return redirect()->back();

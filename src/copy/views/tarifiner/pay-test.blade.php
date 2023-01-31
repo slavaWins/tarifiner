@@ -16,7 +16,7 @@
 
 
                         <h5 class=" ">
-                            Сейчас ваш баланс: {{ \App\Library\Tarifiner\TarifinerLib::GetCurrentBalance(Auth::user())}}
+                            Сейчас ваш баланс: {{ \Tarifiner\Library\TarifinerLib::GetCurrentBalance(Auth::user())}}
                             RUB
                         </h5>
 

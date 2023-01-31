@@ -4,11 +4,11 @@
 namespace Tarifiner\Library;
 
 
+use App\Library\Tarifiner\TarifinerValidate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use App\Library\Tarifine\TarifinerConfiguration;
 
 class TarifinerLib
 {
@@ -30,7 +30,7 @@ class TarifinerLib
         }
 
         $days = floor(self::GetCurrentBalance($user) / $need);
-        $secondToBlocked = $days * \App\Library\Tarifiner\TarifinerConfiguration::DAY_LEN;
+        $secondToBlocked = $days * config('tarifiner.DAY_LEN');
 
         $dateBlocked = Carbon::now()->addSeconds($secondToBlocked);
 
@@ -41,11 +41,11 @@ class TarifinerLib
     public static function TakeBalance($user, $amount)
     {
 
-        $key = \App\Library\Tarifiner\TarifinerConfiguration::USER_BALANCE_COLUM_NAME;
+        $key = config('tarifiner.USER_BALANCE_COLUM_NAME');
         $user->$key -= $amount;
         $user->save();
 
-        \App\Library\Tarifiner\TarifinerConfiguration::OnTakeMoneyUser($user, $amount);
+        TarifinerValidate::OnTakeMoneyUser($user, $amount);
     }
 
     public static function GetUserRentToDay($user)
@@ -81,7 +81,7 @@ class TarifinerLib
         $ld = new Carbon($user->lastBalanceTaked);
         $dateDiff = $ld->diffInSeconds(Carbon::now());
 
-        if ($dateDiff >= \App\Library\Tarifiner\TarifinerConfiguration::DAY_LEN) {
+        if ($dateDiff >= config('tarifiner.DAY_LEN')  ) {
             $user->lastBalanceTaked = Carbon::now();
             $user->save();
             self::TakeRent($user);
@@ -98,7 +98,7 @@ class TarifinerLib
             //  $user = User::find($user->id);
         }
 
-        $key = \App\Library\Tarifiner\TarifinerConfiguration::USER_BALANCE_COLUM_NAME;
+        $key = config('tarifiner.USER_BALANCE_COLUM_NAME');
 
         return $user->$key;
     }

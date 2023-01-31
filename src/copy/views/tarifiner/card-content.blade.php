@@ -1,7 +1,7 @@
 
 <?php
 
-/** @var $item \App\Library\Tarifiner\Contracts\TarifVariant */
+/** @var $item \App\Contracts\Tarifiner\TarifVariant */
 ?>
 
 <h4>{{$item->name}}</h4>

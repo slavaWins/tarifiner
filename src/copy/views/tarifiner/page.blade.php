@@ -1,3 +1,7 @@
+@php
+    use Tarifiner\Library\TarifinerLib;
+@endphp
+
 @extends('layouts.containerscreen')
 
 @section('content')
@@ -8,14 +12,14 @@
 
 
     <h5 class=" ">
-        Сейчас ваш баланс: {{ \App\Library\Tarifiner\TarifinerLib::GetCurrentBalance(Auth::user())}}
+        Сейчас ваш баланс: {{  TarifinerLib::GetCurrentBalance(Auth::user())}}
         RUB
     </h5>
 
 
     <div class="row">
 
-        @foreach(\App\Library\Tarifiner\TarifinerConfiguration::GetVariants() as $K=>$item)
+        @foreach(config('tarifiner.variants') as $K=>$item)
             <div class="col tarifCol m-2 p-4">
 
 
@@ -27,7 +31,7 @@
 
                 @else
 
-                    @if(\App\Library\Tarifiner\TarifinerLib::GetCurrentBalance(Auth::user()) > $item->priceDay*5)
+                    @if( TarifinerLib::GetCurrentBalance(Auth::user()) > $item->priceDay*5)
                         <a class="btn btn-danger _btn" href="{{route("tarifiner.move", $K)}}">Подключить</a>
                     @else
                         <p class="  _btn _curTar"> Для перехода нужно пополнить счет</p>

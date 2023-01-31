@@ -15,10 +15,15 @@ class TarifinerValidate
     {
 
         //if($user->GetProjectCount()>$variant->limitProject)
-        return "У вас слишком много проектов";
+        //return "У вас слишком много проектов";
 
 
         return null;
+    }
+
+
+    public static function OnTakeMoneyUser(User $user, $amount){
+        //У пользователя взяли деньги, можете в историю записать
     }
 
 }

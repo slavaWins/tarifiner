@@ -1,8 +1,8 @@
 <?
 
-use App\Library\Tarifiner\TarifinerLib;
+use Tarifiner\Library\TarifinerLib;
 
-$endDate = \App\Library\Tarifiner\TarifinerLib::DayCountToBlocked(Auth::user());
+$endDate = TarifinerLib::DayCountToBlocked(Auth::user());
 
 $secEnd = $endDate->diffInSeconds(\Carbon\Carbon::now());
 $difEnd = $endDate->diff(\Carbon\Carbon::now());
@@ -28,7 +28,7 @@ $difEnd = $endDate->diff(\Carbon\Carbon::now());
 
         @if($secEnd>3600*24)
 
-            Ваш акаунт оплчен до <BR> {{ \App\Library\Tarifiner\TarifinerLib::DayCountToBlocked(Auth::user())}}
+            Ваш акаунт оплчен до <BR> {{  TarifinerLib::DayCountToBlocked(Auth::user())}}
         @elseif($secEnd<5)
 
             Акаунт заблокирован!!! Нужно пополнить баланс!
